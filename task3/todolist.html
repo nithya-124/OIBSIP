@@ -1,0 +1,142 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>To-Do List App</title> 
+<style> 
+body { 
+  font-family: Arial, sans-serif; 
+} 
+ 
+#app { 
+  max-width: 600px; 
+  margin: 0 auto; 
+  padding: 20px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  box-shadow: 0 0 10px rgba(235, 55, 55, 0.1); 
+} 
+ 
+h1 { 
+  font-size: 24px; 
+  margin-bottom: 10px; 
+} 
+ 
+input[type="text"] { 
+  width: 75%; 
+  padding: 10px; 
+  border: 1px solid rgb(8, 0, 0); 
+  border-radius: 5px; 
+  margin-bottom: 10px; 
+} 
+ 
+button { 
+  padding: 10px; 
+  background-color: #4CAF50; 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+} 
+ 
+button:hover { 
+  background-color: #3e8e41; 
+} 
+ 
+ul { 
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
+} 
+ 
+li { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px; 
+  border: 1px solid rgb(13, 0, 0); 
+  border-radius: 5px; 
+  margin-bottom: 10px; 
+} 
+</style> 
+  </head> 
+  <body> 
+    <div id="app"> 
+      <h1>To-Do List Web App </h1> 
+      <input type="text" id="taskInput"> 
+      <button id="addButton">Add</button> 
+      <ul id="taskList"></ul> 
+    </div> 
+    <script> 
+// Get DOM elements 
+const taskInput = document.getElementById("taskInput"); 
+const addButton = document.getElementById("addButton"); 
+const taskList = document.getElementById("taskList"); 
+ 
+// Create array to hold tasks 
+let tasks = []; 
+ 
+// Add task function 
+function addTask() { 
+  // Get input value 
+  const task = taskInput.value.trim(); 
+ 
+  // Add task to array 
+  if (task !== "") { 
+    tasks.push(task); 
+  } 
+ 
+  // Clear input field 
+  taskInput.value = ""; 
+ 
+  // Update task list 
+  updateTaskList(); 
+} 
+ 
+// Remove task function 
+function removeTask(index) { 
+  // Remove task from array 
+  tasks.splice(index, 1); 
+ 
+  // Update task list 
+  updateTaskList(); 
+} 
+ 
+// Update task list function 
+function updateTaskList() { 
+  // Clear task list 
+  taskList.innerHTML = ""; 
+ 
+  // Loop through tasks array 
+  for (let i = 0; i < tasks.length; i++) { 
+    // Create list item element 
+    const li = document.createElement("li"); 
+ 
+    // Add task text to list item 
+    li.innerText = tasks[i]; 
+ 
+    // Create remove button 
+    const removeButton = document.createElement("button"); 
+    removeButton.innerText = "Remove"; 
+    removeButton.addEventListener("click", () => { 
+      removeTask(i); 
+    }); 
+ 
+    // Add remove button to list item 
+    li.appendChild(removeButton); 
+ 
+    // Add list item to task list 
+    taskList.appendChild(li); 
+  } 
+} 
+ 
+// Add event listeners 
+addButton.addEventListener("click", addTask); 
+taskInput.addEventListener("keydown", (event) => { 
+  if (event.key === "Enter") { 
+    addTask(); 
+  } 
+}); 
+ 
+</script> 
+  </body> 
+</html> 
